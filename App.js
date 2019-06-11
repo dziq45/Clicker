@@ -9,7 +9,9 @@
 import React, { useState, useRef } from 'react';
 import { StyleSheet, Text, View, Image, TouchableHighlight } from 'react-native';
 import { connect } from 'react-redux'
+import ViewPager from '@react-native-community/viewpager'
 import { increment } from './actions/simpleActions'
+import ShopCenter from './ShopCenter'
 
 
 
@@ -33,18 +35,27 @@ const App = (props) => {
 
   }
   return (
-    <View style={styles.container}>
+    <ViewPager style={styles.ViewPager} initialPage={0}>
+      <View key='1' style={styles.container}>
 
-      <TouchableHighlight onPress={() => onRockPress()} underlayColor='transparent'>
-        <Image source={require('./images/rock.png')}></Image>
-      </TouchableHighlight>
-      {clicks.map(elem => (<View style={{ position: "absolute", left: elem.left, top: elem.top }}><Text>{props.incrementBy}</Text></View>))}
-      <Text onPress={() => { console.log(props.status) }}>Twoje złoto: {props.gold}</Text>
-    </View>
+        <TouchableHighlight onPress={() => onRockPress()} underlayColor='transparent'>
+          <Image source={require('./images/rock.png')}></Image>
+        </TouchableHighlight>
+        {clicks.map(elem => (<View style={{ position: "absolute", left: elem.left, top: elem.top }}><Text>{props.incrementBy}</Text></View>))}
+        <Text onPress={() => { console.log(props.status) }}>Twoje złoto: {props.gold}</Text>
+      </View>
+
+      <ShopCenter></ShopCenter>
+
+    </ViewPager>
+
   );
 }
 
 const styles = StyleSheet.create({
+  ViewPager: {
+    flex: 1
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
